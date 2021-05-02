@@ -1,0 +1,29 @@
+<html>
+<link rel="stylesheet" type="text/css" href="style.css" />
+	<body align='center'>
+		<title>ViewUserPosts</title>
+		<br><h1>View User Posts</h1><br>
+		<form action="ViewUserPosts.php" method="POST">
+		<b><font color="#eeb08d" size="5">Select User:</font></b>
+			<select name="user" id="user">
+			<?php 
+				$mysqli = new mysqli("mysql.eecs.ku.edu","yuyingli","chie7eek","yuyingli"); 
+				if ($mysqli->connect_errno) {
+					printf("Connect failed: %s\n", $mysqli->connect_error);
+					exit();
+				}
+				$query = "SELECT * FROM Users WHERE true";
+				if ($result = $mysqli->query($query)) 
+				{
+					while ($row = $result->fetch_assoc()) 
+					{
+						echo '<option value="' . $row["user_id"] . '" required>' . $row["user_id"] . "</option>"; 
+					}
+				}
+				$mysqli->close();
+			?>
+			</select><br><br>
+			<button type="submit">Search</button>
+		</form>
+	</body>
+</html>
